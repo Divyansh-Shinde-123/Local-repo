@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
+
     <nav class="navbar">
         <div class="container">
             <div class="logo">Green Leaves</div>
@@ -20,7 +20,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Welcome to Green Leaves</h1>
@@ -29,28 +28,30 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <h2>About Us</h2>
-            <p>We are dedicated to providing eco-friendly solutions that make a difference for your business and the planet.</p>
+            <div class="img-placeholder">IMAGE: about.jpg</div>
+            <p>We are dedicated to providing eco-friendly solutions.</p>
         </div>
     </section>
 
-    <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
             <h2>Our Services</h2>
             <div class="service-grid">
                 <div class="service-card">
+                    <div class="img-placeholder">IMAGE: consultation.png</div>
                     <h3>Consultation</h3>
                     <p>Expert advice for sustainable practices</p>
                 </div>
                 <div class="service-card">
+                    <div class="img-placeholder">IMAGE: implementation.png</div>
                     <h3>Implementation</h3>
                     <p>Turn green ideas into reality</p>
                 </div>
                 <div class="service-card">
+                    <div class="img-placeholder">IMAGE: support.png</div>
                     <h3>Support</h3>
                     <p>Ongoing guidance and assistance</p>
                 </div>
@@ -58,26 +59,46 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
             <h2>Get In Touch</h2>
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" rows="5" required></textarea>
+
+            <form id="myForm" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
+
+            <p id="status"></p>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Green Leaves. All rights reserved.</p>
+            <p>&copy; 2025 Green Leaves.</p>
+            <p class="watermark">Demo by Divyansh Shinde</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById("myForm").addEventListener("submit", async function(e){
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            let res = await fetch("http://127.0.0.1:5000/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            let data = await res.json();
+
+            document.getElementById("status").innerText = data.msg;
+
+            console.log("Google Form Link:", data.url);
+        });
+    </script>
+
 </body>
 </html>
